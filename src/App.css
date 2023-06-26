@@ -10,37 +10,49 @@
     /* @formatter:off */
     box-shadow:
         0 0 0 10px black,
-        0 0 0 15px silver,
+        0 0 0 15px rgb(119,60,141),
         rgba(0, 0, 0, 0.25) 0 54px 55px,
         rgba(0, 0, 0, 0.12) 0 -12px 30px,
         rgba(0, 0, 0, 0.12) 0 4px 6px,
         rgba(0, 0, 0, 0.17) 0 12px 13px,
         rgba(0, 0, 0, 0.09) 0 -3px 5px;
+
+    /* @formatter:on */
+}
+
+.background {
+    position: relative;
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
+    opacity: 0.9;
+    /* @formatter:off */
     background-image:
-        radial-gradient(
-            circle,
-            hsl(326,53%,62%),
-            hsl(311,42%,62%),
-            hsl(286,40%,65%),
-            hsl(262,48%,70%),
-            hsl(240,54%,74%),
-            hsl(221,63%,70%),
-            hsl(211,66%,64%),
-            hsl(203,65%,59%),
-            hsl(194,71%,46%),
-            hsl(188,100%,36%),
-            hsl(182,100%,31%),
-            hsl(174,93%,30%)
+        linear-gradient(to left bottom,
+        hsl(197,100%,33%),
+        hsl(216,41%,48%),
+        hsl(253,27%,53%),
+        hsl(299,25%,47%),
+        hsl(332,37%,50%),
+        hsl(349,41%,51%),
+        hsl(8,44%,49%),
+        hsl(24,56%,41%),
+        hsl(42,65%,34%),
+        hsl(65,56%,30%),
+        hsl(102,40%,35%),
+        hsl(159,100%,25%)
         );
     /* @formatter:on */
 }
 
-.screen {
-    height: inherit;
-    width: inherit;
-    border-radius: inherit;
-    background: rgba(255, 255, 255, 0.22);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(13px);
-    -webkit-backdrop-filter: blur(13px);
+.dynamic-island {
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 110px;
+    height: 25px;
+    border-radius: 40px;
+    background: black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }

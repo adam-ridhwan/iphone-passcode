@@ -5,7 +5,9 @@ function App() {
     <>
       <div>
         <div className='iphone'>
-          <div className='screen'></div>
+          <div className='background'>
+            <div className='dynamic-island'></div>
+          </div>
         </div>
       </div>
     </>
