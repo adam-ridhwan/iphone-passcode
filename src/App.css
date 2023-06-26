@@ -1,0 +1,46 @@
+.iphone {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 668px;
+    width: 333px;
+    border-radius: 39px;
+    overflow: hidden;
+    /* @formatter:off */
+    box-shadow:
+        0 0 0 10px black,
+        0 0 0 15px silver,
+        rgba(0, 0, 0, 0.25) 0 54px 55px,
+        rgba(0, 0, 0, 0.12) 0 -12px 30px,
+        rgba(0, 0, 0, 0.12) 0 4px 6px,
+        rgba(0, 0, 0, 0.17) 0 12px 13px,
+        rgba(0, 0, 0, 0.09) 0 -3px 5px;
+    background-image:
+        radial-gradient(
+            circle,
+            hsl(326,53%,62%),
+            hsl(311,42%,62%),
+            hsl(286,40%,65%),
+            hsl(262,48%,70%),
+            hsl(240,54%,74%),
+            hsl(221,63%,70%),
+            hsl(211,66%,64%),
+            hsl(203,65%,59%),
+            hsl(194,71%,46%),
+            hsl(188,100%,36%),
+            hsl(182,100%,31%),
+            hsl(174,93%,30%)
+        );
+    /* @formatter:on */
+}
+
+.screen {
+    height: inherit;
+    width: inherit;
+    border-radius: inherit;
+    background: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(13px);
+    -webkit-backdrop-filter: blur(13px);
+}
