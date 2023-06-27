@@ -1,17 +1,24 @@
+:root {
+    --height: 668px;
+    --width: 333px;
+}
+
+
 .iphone {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: 668px;
-    width: 333px;
+    height: calc(var(--height) * 0.75);
+    width: calc(var(--width) * 0.75);
     border-radius: 39px;
+    background: black;
     overflow: hidden;
+
     /* @formatter:off */
     box-shadow:
         0 0 0 10px black,
-        0 0 0 15px hsl(0, 0%, 75%)
-        ,
+        0 0 0 15px hsl(0, 0%, 75%),
         hsla(0,0%,0%,0.25) 0 54px 55px,
         hsla(0,0%,0%,0.12) 0 -12px 30px,
         hsla(0,0%,0%,0.12) 0 4px 6px,
@@ -20,53 +27,135 @@
     /* @formatter:on */
 }
 
+.dynamic-island {
+    position: absolute;
+    z-index: 100;
+    top: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 25px;
+    border-radius: 40px;
+    background-color: black;
+    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+}
+
 .background {
     position: relative;
     height: inherit;
     width: inherit;
-    border-radius: inherit;
-    opacity: 0.9;
+}
+
+.lock-screen {
+    position: absolute;
+    z-index: 3;
+    height: inherit;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     /* @formatter:off */
     background-image:
-        linear-gradient(to left bottom,
-        hsl(197,100%,33%),
-        hsl(216,41%,48%),
-        hsl(253,27%,53%),
-        hsl(299,25%,47%),
-        hsl(332,37%,50%),
-        hsl(349,41%,51%),
-        hsl(8,44%,49%),
-        hsl(24,56%,41%),
-        hsl(42,65%,34%),
-        hsl(65,56%,30%),
-        hsl(102,40%,35%),
-        hsl(159,100%,25%)
-        );
+        linear-gradient(
+            to left bottom,
+            hsl(197, 100%, 33%),
+            hsl(216, 41%, 48%),
+            hsl(253, 27%, 53%),
+            hsl(299, 25%, 47%),
+            hsl(332, 37%, 50%),
+            hsl(349, 41%, 51%),
+            hsl(8, 44%, 49%),
+            hsl(24, 56%, 41%),
+            hsl(42, 65%, 34%),
+            hsl(65, 56%, 30%),
+            hsl(102, 40%, 35%),
+            hsl(159, 100%, 25%)
+            );
     /* @formatter:on */
 }
 
-.dynamic-island {
+.lock-screen[data-is-lockscreen-swiped-up='true'] {
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: transform 300ms ease-in-out, opacity 300ms ease-in-out 300ms;
+}
+
+.lock-screen[data-is-lockscreen-swiped-up='false'] {
+    transform: translateY(0);
+}
+
+.current-date {
+    user-select: none;
+    padding-top: 4em;
+    font-size: 0.8em;
+    font-weight: 700;
+}
+
+.current-time {
+    user-select: none;
+    font-size: 3.5em;
+    font-weight: 700;
+    line-height: 0.9em;
+}
+
+.swipe-container {
     position: absolute;
-    top: 12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 140px;
-    height: 30px;
+    cursor: pointer;
+    user-select: none;
+    bottom: 0;
+    z-index: 100;
+    height: 60px;
+    width: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.swipe-indicator {
+    pointer-events: none;
+    position: absolute;
+    bottom: 8px;
+    width: 90px;
+    height: 4px;
+    z-index: 100;
     border-radius: 40px;
-    background: black;
-    box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+    background-color: white;
+}
+
+.passcode-screen {
+    position: absolute;
+    z-index: 5;
+    height: inherit;
+    width: inherit;
+    opacity: 0;
+    pointer-events: none;
+    background-color: hsl(206, 6.0%, 43.5%);
+    transition: transform 300ms ease-in-out, opacity 200ms ease-in-out 200ms;
+
+}
+
+.passcode-screen[data-is-lockscreen-swiped-up='true'] {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.passcode-screen[data-phone-unlocked='true'] {
+    transform: translateY(-100%);
 }
 
 .user-interface-container {
+    user-select: none;
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 7em;
+    padding-top: 5.2em;
 }
 
 .passcode-prompt {
+    font-size: 0.8em;
     font-weight: 700;
 }
 
@@ -103,12 +192,12 @@
 }
 
 .pin {
-    margin-top: 0.5em;
+    margin-top: 0.2em;
 }
 
 .empty-circle-svg-icon {
-    height: 0.6rem;
-    width: 0.6rem;
+    height: 0.5rem;
+    width: 0.5rem;
     transition: fill 300ms ease;
 }
 
@@ -124,12 +213,13 @@
 .keypad-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.2em;
-    margin-top: 4.5em;
+    gap: 1em;
+    margin-top: 3em;
 }
 
 .keypad {
-    --keypad-size: 65px;
+    --keypad-size: 3.6em;
+    font-family: inherit;
     outline: none;
     border: none;
     background-color: rgba(240, 240, 240, 0.4);
@@ -141,14 +231,13 @@
     width: var(--keypad-size);
     border-radius: 50%;
     cursor: pointer;
-    line-height: 1.4em;
-    transition: background-color 0.5s ease;
+    line-height: 1.1em;
+    transition: passcode-screen-color 0.5s ease;
 }
 
 .keypad:active {
     background-color: rgba(240, 240, 240, 0.75);
 }
-
 
 .keypad:not(:last-child) {
     padding-top: 0.5em;
@@ -159,13 +248,13 @@
 }
 
 .keypad-number {
-    font-size: 2.4em;
+    font-size: 1.9em;
     font-weight: 700;
 }
 
 .keypad-letters {
     letter-spacing: 0.1em;
-    font-size: 0.7em;
+    font-size: 0.5em;
     font-weight: 700;
 }
 
@@ -173,16 +262,106 @@
     opacity: 0;
 }
 
-
 .delete-or-cancel-button {
     position: absolute;
-    bottom: 3.3em;
-    right: 3.3em;
+    z-index: 3;
+    bottom: 2.3em;
+    right: 3em;
     outline: none;
     border: none;
     background-color: transparent;
-    font-size: 0.9em;
+    font-size: 0.6em;
     font-weight: bold;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+.content[data-is-rick-rolled='true'] {
+    opacity: 1;
+}
+
+.rick-astley-gif {
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+    object-position: center;
+
+}
+
+
+@media (min-width: 750px) {
+    .iphone {
+        height: var(--height);
+        width: var(--width);
+    }
+
+    .dynamic-island {
+        width: 130px;
+        height: 30px;
+    }
+
+    .current-date {
+        font-size: 1em;
+    }
+
+    .current-time {
+        font-size: 5em;
+    }
+
+    .swipe-indicator {
+        width: 120px;
+    }
+
+    .user-interface-container {
+        padding-top: 7em;
+    }
+
+    .passcode-prompt {
+        font-size: 1em;
+    }
+
+    .pin-container {
+        gap: 1.2em;
+    }
+
+    .empty-circle-svg-icon {
+        height: 0.7rem;
+        width: 0.7rem;
+    }
+
+    .keypad-container {
+        gap: 1.3em;
+        margin-top: 5em;
+    }
+
+    .keypad {
+        --keypad-size: 4.7em;
+        line-height: 1.3em;
+
+    }
+
+    .keypad-number {
+        font-size: 2.2em;
+    }
+
+    .keypad-letters {
+        letter-spacing: 0.1em;
+        font-size: 0.7em;
+        font-weight: 700;
+    }
+
+    .delete-or-cancel-button {
+        bottom: 3.3em;
+        right: 3.3em;
+        font-size: 0.9em;
+    }
+
 }

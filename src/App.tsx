@@ -1,5 +1,6 @@
 import './App.css';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, MouseEvent, TouchEvent } from 'react';
+import RICK_ASTLEY from './assets/img/rick-astley.gif';
 
 type PasscodeValidationState = 'CORRECT' | 'INCORRECT' | undefined;
 type PasscodeState = [number?, number?, number?, number?];
@@ -10,9 +11,27 @@ const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
 const LETTERS = ['placeholder', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ', ''];
 const PASSCODE = '1111';
 
+const formatDate = (): string => {
+  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const currentDate = new Date();
+  return currentDate.toLocaleString('en-US', options);
+};
+
+const formatTime = (): string => {
+  const currentDate = new Date();
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  return `${hours}:${minutes.toString().padStart(2, '0')}`;
+};
+
 function App() {
   const [pressedNumbersArray, setPressedNumbersArray] = useState<PasscodeState>([]);
   const [passcodeValidationState, setPasscodeValidationState] = useState<PasscodeValidationState>(undefined);
+  const [isLockScreenSwipedUp, setIsLockScreenSwipedUp] = useState<boolean>(false);
+
+  useEffect(() => {
+    console.log(isLockScreenSwipedUp);
+  }, [isLockScreenSwipedUp]);
 
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
@@ -34,18 +53,123 @@ function App() {
     }
   };
 
+  const [currentTime, setCurrentTime] = useState(formatTime());
+  const [currentDate, setCurrentDate] = useState(formatDate());
+
   useEffect(() => {
-    console.log('pressedNumbersArray', pressedNumbersArray);
-  }, [pressedNumbersArray]);
+    const interval = setInterval(() => {
+      setCurrentTime(formatTime());
+      setCurrentDate(formatDate());
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  const swipeContainerRef = useRef<HTMLDivElement>(null);
+  const touchStartRef = useRef({ x: 0, y: 0 });
+
+  const handleTouchStart = (e: TouchEvent) => {
+    const { clientX, clientY } = e.touches[0];
+    touchStartRef.current = { x: clientX, y: clientY };
+
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleTouchEnd);
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    const { clientX, clientY } = e.touches[0];
+    const touchEnd = { x: clientX, y: clientY };
+    const swipeDirection = getSwipeDirection(touchStartRef.current, touchEnd);
+    if (swipeDirection === 'up') {
+      const containerElement = swipeContainerRef.current;
+      if (containerElement) {
+        const containerRect = containerElement.getBoundingClientRect();
+        const containerTop = containerRect.top;
+        const containerHeight = containerRect.height;
+
+        if (touchEnd.y < containerTop || touchEnd.y > containerTop + containerHeight) {
+          // console.log('Touch swipe up - Overflow');
+          setIsLockScreenSwipedUp(true);
+        }
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    document.removeEventListener('touchmove', handleTouchMove);
+    document.removeEventListener('touchend', handleTouchEnd);
+  };
+
+  const handleMouseDown = (e: MouseEvent) => {
+    const { clientX, clientY } = e;
+    touchStartRef.current = { x: clientX, y: clientY };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    const { clientX, clientY } = e;
+    const touchEnd = { x: clientX, y: clientY };
+    const swipeDirection = getSwipeDirection(touchStartRef.current, touchEnd);
+
+    if (swipeDirection === 'up') {
+      const containerElement = swipeContainerRef.current;
+      if (containerElement) {
+        const containerRect = containerElement.getBoundingClientRect();
+        const containerTop = containerRect.top;
+        const containerHeight = containerRect.height;
+
+        if (touchEnd.y < containerTop || touchEnd.y > containerTop + containerHeight) {
+          // console.log('Mouse swipe up - Overflow');
+          setIsLockScreenSwipedUp(true);
+        }
+      }
+    }
+  };
+
+  const handleMouseUp = () => {
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  };
+
+  const getSwipeDirection = (start: { x: number; y: number }, end: { x: number; y: number }) => {
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    const slope = Math.abs(dy / dx);
+    if (slope > 1 && dy < 0) return 'up';
+    return 'none';
+  };
 
   return (
     <>
       <div className='iphone'>
-        <div className='background'>
-          <div className='dynamic-island' />
+        <div className='dynamic-island' />
 
+        <div className='lock-screen' data-is-lockscreen-swiped-up={isLockScreenSwipedUp}>
+          <div className='current-date'>{currentDate}</div>
+          <div className='current-time'>{currentTime}</div>
+          <div
+            ref={swipeContainerRef}
+            className='swipe-container'
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+          />
+          <div className='swipe-indicator' />
+        </div>
+
+        <div
+          className='passcode-screen'
+          data-is-lockscreen-swiped-up={isLockScreenSwipedUp}
+          data-phone-unlocked={passcodeValidationState === CORRECT}
+        >
           <div className='user-interface-container'>
             <div className='passcode-prompt'>Enter Passcode</div>
+
             <div className='pin-container' data-is-passcode-wrong={passcodeValidationState === INCORRECT}>
               {Array(4)
                 .fill(null)
@@ -79,10 +203,19 @@ function App() {
               })}
             </div>
 
-            <button className='delete-or-cancel-button'>
+            <button
+              className='delete-or-cancel-button'
+              onClick={() => {
+                pressedNumbersArray.length === 0 && setIsLockScreenSwipedUp(false);
+              }}
+            >
               {pressedNumbersArray.length === 0 ? 'Cancel' : 'Delete'}
             </button>
           </div>
+        </div>
+
+        <div className='content' data-is-rick-rolled={passcodeValidationState === CORRECT}>
+          <img src={RICK_ASTLEY} alt='Rick Astley dancing' className='rick-astley-gif' />
         </div>
       </div>
     </>
