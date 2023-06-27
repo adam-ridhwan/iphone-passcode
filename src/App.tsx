@@ -1,9 +1,7 @@
 import './App.css';
 import { useEffect, useRef, useState } from 'react';
 
-type CORRECT = 'CORRECT';
-type INCORRECT = 'INCORRECT';
-type PasscodeValidationState = CORRECT | INCORRECT | undefined;
+type PasscodeValidationState = 'CORRECT' | 'INCORRECT' | undefined;
 type PasscodeState = [number?, number?, number?, number?];
 
 const CORRECT = 'CORRECT' as const;
