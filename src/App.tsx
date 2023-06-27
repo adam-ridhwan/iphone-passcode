@@ -1,6 +1,6 @@
-import './App.css';
 import { useEffect, useRef, useState, MouseEvent, TouchEvent } from 'react';
 import RICK_ASTLEY from './assets/img/rick-astley.gif';
+import './App.css';
 
 type PasscodeValidationState = 'CORRECT' | 'INCORRECT' | undefined;
 type PasscodeState = [number?, number?, number?, number?];
@@ -32,10 +32,6 @@ function App() {
   const [pressedNumbersArray, setPressedNumbersArray] = useState<PasscodeState>([]);
   const [passcodeValidationState, setPasscodeValidationState] = useState<PasscodeValidationState>(undefined);
   const [isLockScreenSwipedUp, setIsLockScreenSwipedUp] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.log(isLockScreenSwipedUp);
-  }, [isLockScreenSwipedUp]);
 
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
@@ -78,8 +74,8 @@ function App() {
     const { clientX, clientY } = e.touches[0];
     touchStartRef.current = { x: clientX, y: clientY };
 
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleTouchEnd);
+    document.addEventListener('touchmove', handleTouchMove as any);
+    document.addEventListener('touchend', handleTouchEnd as any);
   };
 
   const handleTouchMove = (e: TouchEvent) => {
@@ -94,7 +90,6 @@ function App() {
         const containerHeight = containerRect.height;
 
         if (touchEnd.y < containerTop || touchEnd.y > containerTop + containerHeight) {
-          // console.log('Touch swipe up - Overflow');
           setIsLockScreenSwipedUp(true);
         }
       }
@@ -102,16 +97,16 @@ function App() {
   };
 
   const handleTouchEnd = () => {
-    document.removeEventListener('touchmove', handleTouchMove);
-    document.removeEventListener('touchend', handleTouchEnd);
+    document.removeEventListener('touchmove', handleTouchMove as any);
+    document.removeEventListener('touchend', handleTouchEnd as any);
   };
 
   const handleMouseDown = (e: MouseEvent) => {
     const { clientX, clientY } = e;
     touchStartRef.current = { x: clientX, y: clientY };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('mousemove', handleMouseMove as any);
+    document.addEventListener('mouseup', handleMouseUp as any);
   };
 
   const handleMouseMove = (e: MouseEvent) => {
@@ -127,7 +122,6 @@ function App() {
         const containerHeight = containerRect.height;
 
         if (touchEnd.y < containerTop || touchEnd.y > containerTop + containerHeight) {
-          // console.log('Mouse swipe up - Overflow');
           setIsLockScreenSwipedUp(true);
         }
       }
@@ -135,8 +129,8 @@ function App() {
   };
 
   const handleMouseUp = () => {
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
+    document.removeEventListener('mousemove', handleMouseMove as any);
+    document.removeEventListener('mouseup', handleMouseUp as any);
   };
 
   const getSwipeDirection = (start: { x: number; y: number }, end: { x: number; y: number }) => {
