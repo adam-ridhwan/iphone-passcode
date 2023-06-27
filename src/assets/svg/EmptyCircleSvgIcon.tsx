@@ -11,6 +11,7 @@ const EmptyCircleSvgIcon = () => {
         strokeWidth='4'
         strokeLinecap='round'
         strokeLinejoin='round'
+        className='empty-circle-svg-icon'
       >
         <circle cx='12' cy='12' r='10' />
       </svg>
