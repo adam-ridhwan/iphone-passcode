@@ -233,6 +233,7 @@
     cursor: pointer;
     line-height: 1.1em;
     transition: passcode-screen-color 0.5s ease;
+    color: white;
 }
 
 .keypad:active {
@@ -274,6 +275,7 @@
     font-weight: bold;
     text-decoration: underline;
     cursor: pointer;
+    color: white;
 }
 
 .content {
