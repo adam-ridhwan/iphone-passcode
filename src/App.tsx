@@ -12,11 +12,7 @@ const LETTERS = ['placeholder', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV'
 const PASSCODE = '1111';
 
 const formatDate = (): string => {
-  const options: Intl.DateTimeFormatOptions = {
-    weekday: 'long',
-    month: 'long',
-    day: 'numeric',
-  };
+  const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
   const currentDate = new Date();
   return currentDate.toLocaleString('en-US', options);
 };
@@ -51,6 +47,11 @@ function App() {
       setPasscodeValidationState(isPasscodeCorrect ? CORRECT : INCORRECT);
       timeoutId.current = setTimeout(() => setPressedNumbersArray([]), isPasscodeCorrect ? 1000 : 100);
     }
+  };
+
+  const handleCancelOrDelete = () => {
+    if (pressedNumbersArray.length === 0) return setIsLockScreenSwipedUp(false);
+    setPressedNumbersArray(pressedNumbersArray.slice(0, pressedNumbersArray.length - 1) as PasscodeState);
   };
 
   const [currentTime, setCurrentTime] = useState(formatTime());
@@ -201,12 +202,7 @@ function App() {
               })}
             </div>
 
-            <button
-              className='delete-or-cancel-button'
-              onClick={() => {
-                pressedNumbersArray.length === 0 && setIsLockScreenSwipedUp(false);
-              }}
-            >
+            <button className='delete-or-cancel-button' onClick={() => handleCancelOrDelete()}>
               {pressedNumbersArray.length === 0 ? 'Cancel' : 'Delete'}
             </button>
           </div>
