@@ -10,13 +10,13 @@
     /* @formatter:off */
     box-shadow:
         0 0 0 10px black,
-        0 0 0 15px rgb(119,60,141),
+        0 0 0 15px hsl(0, 0%, 75%)
+        ,
         rgba(0, 0, 0, 0.25) 0 54px 55px,
         rgba(0, 0, 0, 0.12) 0 -12px 30px,
         rgba(0, 0, 0, 0.12) 0 4px 6px,
         rgba(0, 0, 0, 0.17) 0 12px 13px,
         rgba(0, 0, 0, 0.09) 0 -3px 5px;
-
     /* @formatter:on */
 }
 
@@ -50,9 +50,133 @@
     top: 12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 110px;
-    height: 25px;
+    width: 140px;
+    height: 30px;
     border-radius: 40px;
     background: black;
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
+}
+
+.passcode-entry-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 7em;
+}
+
+.passcode-prompt {
+    font-weight: 700;
+}
+
+.pin-container {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.pin-container[data-ispasscodewrong= 'false'] {
+    animation: shake 0.82s cubic-bezier(.36, .07, .19, .97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%, 90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%, 80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%, 50%, 70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%, 60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+.pin {
+    margin-top: 0.5em;
+}
+
+
+.pin svg {
+    height: 0.6rem;
+    width: 0.6rem;
+}
+
+.pin svg[data-entered='true'] {
+    fill: white;
+}
+
+
+.keypad-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2em;
+    margin-top: 4.5em;
+}
+
+.keypad {
+    outline: none;
+    border: none;
+    background-color: rgba(240, 240, 240, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1.4em;
+    transition: background-color 0.5s ease;
+}
+
+.keypad:active {
+    background-color: rgba(240, 240, 240, 0.75);
+}
+
+
+.keypad:not(:last-child) {
+    padding-top: 0.5em;
+}
+
+.keypad:nth-last-child(1) {
+    grid-column: 2 / span 1;
+}
+
+.keypad-number {
+    font-size: 2.4em;
+    font-weight: 700;
+}
+
+.keypad-letters {
+    letter-spacing: 0.1em;
+    font-size: 0.7em;
+    font-weight: 700;
+}
+
+.keypad-container .keypad:first-child .keypad-letters {
+    opacity: 0;
+}
+
+
+.delete-or-cancel-button {
+    position: absolute;
+    bottom: 2.5em;
+    right: 2.5em;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    font-size: 0.9em;
+    font-weight: bold;
+    text-decoration: underline;
+    cursor: pointer;
 }
