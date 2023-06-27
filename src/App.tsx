@@ -12,7 +12,11 @@ const LETTERS = ['placeholder', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV'
 const PASSCODE = '1111';
 
 const formatDate = (): string => {
-  const options = { weekday: 'long', month: 'long', day: 'numeric' };
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'long',
+    month: 'long',
+    day: 'numeric',
+  };
   const currentDate = new Date();
   return currentDate.toLocaleString('en-US', options);
 };
@@ -79,9 +83,9 @@ function App() {
   };
 
   const handleTouchMove = (e: TouchEvent) => {
-    const { clientX, clientY } = e.touches[0];
-    const touchEnd = { x: clientX, y: clientY };
-    const swipeDirection = getSwipeDirection(touchStartRef.current, touchEnd);
+    const { clientX, clientY } = e.touches[0],
+      touchEnd = { x: clientX, y: clientY },
+      swipeDirection = getSwipeDirection(touchStartRef.current, touchEnd);
     if (swipeDirection === 'up') {
       const containerElement = swipeContainerRef.current;
       if (containerElement) {
