@@ -90,7 +90,6 @@ function App() {
         const containerHeight = containerRect.height;
 
         if (touchEnd.y < containerTop || touchEnd.y > containerTop + containerHeight) {
-          // console.log('Touch swipe up - Overflow');
           setIsLockScreenSwipedUp(true);
         }
       }
@@ -123,7 +122,6 @@ function App() {
         const containerHeight = containerRect.height;
 
         if (touchEnd.y < containerTop || touchEnd.y > containerTop + containerHeight) {
-          // console.log('Mouse swipe up - Overflow');
           setIsLockScreenSwipedUp(true);
         }
       }
