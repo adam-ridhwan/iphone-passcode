@@ -1,6 +1,6 @@
-import './App.css';
 import { useEffect, useRef, useState, MouseEvent, TouchEvent } from 'react';
 import RICK_ASTLEY from './assets/img/rick-astley.gif';
+import './App.css';
 
 type PasscodeValidationState = 'CORRECT' | 'INCORRECT' | undefined;
 type PasscodeState = [number?, number?, number?, number?];
