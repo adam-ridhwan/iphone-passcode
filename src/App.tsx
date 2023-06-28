@@ -31,6 +31,25 @@ function App() {
 
   const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
+  const iphoneRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const setIphoneHeight = () => {
+      if (iphoneRef.current) {
+        const width = iphoneRef.current.offsetWidth;
+        iphoneRef.current.style.height = `${(width * 19.5) / 9}px`;
+      }
+    };
+
+    setIphoneHeight();
+
+    window.addEventListener('resize', setIphoneHeight);
+
+    return () => {
+      window.removeEventListener('resize', setIphoneHeight);
+    };
+  }, []);
+
   const handleKeypadEnter = (number: number) => {
     setPasscodeValidationState(undefined);
 
@@ -123,6 +142,7 @@ function App() {
         const containerHeight = containerRect.height;
 
         if (touchEnd.y < containerTop || touchEnd.y > containerTop + containerHeight) {
+          console.log('swiped up');
           setIsLockScreenSwipedUp(true);
         }
       }
@@ -144,7 +164,7 @@ function App() {
 
   return (
     <>
-      <div className='iphone'>
+      <div ref={iphoneRef} className='iphone'>
         <div className='dynamic-island' />
 
         <div className='lock-screen' data-is-lockscreen-swiped-up={isLockScreenSwipedUp}>

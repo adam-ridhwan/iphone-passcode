@@ -1,20 +1,18 @@
 :root {
-    --height: 668px;
-    --width: 333px;
+    --mobile-width: 85vw;
+    --desktop-width: 500px;
 }
-
 
 .iphone {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height: calc(var(--height) * 0.75);
-    width: calc(var(--width) * 0.75);
+    width: var(--mobile-width);
     border-radius: 39px;
     background: black;
     overflow: hidden;
-
+    font-size: 14px;
     /* @formatter:off */
     box-shadow:
         0 0 0 10px black,
@@ -87,13 +85,13 @@
 .current-date {
     user-select: none;
     padding-top: 4em;
-    font-size: 0.8em;
+    font-size: 1.25em;
     font-weight: 700;
 }
 
 .current-time {
     user-select: none;
-    font-size: 3.5em;
+    font-size: 5.5em;
     font-weight: 700;
     line-height: 0.9em;
 }
@@ -116,8 +114,8 @@
     pointer-events: none;
     position: absolute;
     bottom: 8px;
-    width: 90px;
-    height: 4px;
+    width: 110px;
+    height: 5px;
     z-index: 100;
     border-radius: 40px;
     background-color: white;
@@ -151,18 +149,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 5.2em;
+    padding-top: 8em;
 }
 
 .passcode-prompt {
-    font-size: 0.8em;
+    font-size: 1.2em;
     font-weight: 700;
 }
 
 .pin-container {
     display: flex;
     flex-direction: row;
-    gap: 1em;
+    gap: 1.5em;
 }
 
 .pin-container[data-is-passcode-wrong='true'] {
@@ -196,8 +194,8 @@
 }
 
 .empty-circle-svg-icon {
-    height: 0.5rem;
-    width: 0.5rem;
+    height: 0.6rem;
+    width: 0.6rem;
     transition: fill 300ms ease;
 }
 
@@ -213,12 +211,12 @@
 .keypad-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1em;
-    margin-top: 3em;
+    gap: 1.5em;
+    margin-top: 7em;
 }
 
 .keypad {
-    --keypad-size: 3.6em;
+    --keypad-size: 5em;
     font-family: inherit;
     outline: none;
     border: none;
@@ -231,7 +229,7 @@
     width: var(--keypad-size);
     border-radius: 50%;
     cursor: pointer;
-    line-height: 1.1em;
+    line-height: 1.4em;
     transition: passcode-screen-color 0.5s ease;
     color: white;
 }
@@ -249,14 +247,13 @@
 }
 
 .keypad-number {
-    font-size: 1.9em;
+    font-size: 2.5em;
     font-weight: 700;
 }
 
 .keypad-letters {
-    letter-spacing: 0.1em;
-    font-size: 0.5em;
-    font-weight: 700;
+    font-size: 0.7em;
+    font-weight: bold;
 }
 
 .keypad-container .keypad:first-child .keypad-letters {
@@ -266,12 +263,12 @@
 .delete-or-cancel-button {
     position: absolute;
     z-index: 3;
-    bottom: 2.3em;
-    right: 3em;
+    bottom: 3.5em;
+    right: 3.5em;
     outline: none;
     border: none;
     background-color: transparent;
-    font-size: 0.6em;
+    font-size: 1em;
     font-weight: bold;
     text-decoration: underline;
     cursor: pointer;
@@ -301,69 +298,68 @@
 
 @media (min-width: 750px) {
     .iphone {
-        height: var(--height);
-        width: var(--width);
+        width: var(--desktop-width);
+        height: calc(var(--desktop-width) * 19.5 / 9) px;
     }
 
     .dynamic-island {
-        width: 130px;
-        height: 30px;
+        width: 170px;
+        height: 35px;
     }
 
     .current-date {
-        font-size: 1em;
+        font-size: 1.5em;
     }
 
     .current-time {
-        font-size: 5em;
+        font-size: 7em;
     }
 
     .swipe-indicator {
-        width: 120px;
+        width: 160px;
     }
 
     .user-interface-container {
-        padding-top: 7em;
+        padding-top: 13em;
     }
 
     .passcode-prompt {
-        font-size: 1em;
+        font-size: 1.75em;
     }
 
     .pin-container {
-        gap: 1.2em;
+        gap: 2em;
+        margin-top: 1em;
     }
 
     .empty-circle-svg-icon {
-        height: 0.7rem;
-        width: 0.7rem;
+        height: 1rem;
+        width: 1rem;
     }
 
     .keypad-container {
-        gap: 1.3em;
-        margin-top: 5em;
+        gap: 2em;
+        margin-top: 9em;
     }
 
     .keypad {
-        --keypad-size: 4.7em;
-        line-height: 1.3em;
-
+        --keypad-size: 7em;
+        line-height: 2em;
     }
 
     .keypad-number {
-        font-size: 2.2em;
+        font-size: 3.5em;
     }
 
     .keypad-letters {
-        letter-spacing: 0.1em;
-        font-size: 0.7em;
+        font-size: 1em;
         font-weight: 700;
     }
 
     .delete-or-cancel-button {
-        bottom: 3.3em;
-        right: 3.3em;
-        font-size: 0.9em;
+        bottom: 3.5em;
+        right: 3.5em;
+        font-size: 1.5em;
     }
 
 }
