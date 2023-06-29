@@ -1,4 +1,3 @@
-
 .iphone {
     position: fixed;
     top: 50%;
@@ -113,11 +112,56 @@
     pointer-events: none;
     position: absolute;
     bottom: 8px;
-    width: 110px;
+    width: 130px;
     height: 5px;
     z-index: 100;
     border-radius: 40px;
     background-color: white;
+}
+
+.swipe-indicator[data-is-lockscreen-swiped-up='false'] {
+    animation: move 9s ease-in-out infinite;
+}
+
+@keyframes move {
+    /* @formatter:off */
+    0%, 7% { transform: translateY(0); }
+    21%, 50% { transform: translateY(-20px); }
+    50%, 70% { transform: translateY(0); }
+    71%, 100% { transform: translateY(0); }
+    /* @formatter:on */
+}
+
+.swipe-prompt {
+    pointer-events: none;
+    position: absolute;
+    bottom: 15px;
+    z-index: 100;
+    border-radius: 40px;
+}
+
+.swipe-prompt[data-is-lockscreen-swiped-up='false'] {
+    animation: movePrompt 9s ease-in-out infinite;
+}
+
+@keyframes movePrompt {
+    /* @formatter:off */
+    0%, 7% {
+        transform: translateY(0);
+        opacity: 0;
+    }
+    21%, 50% {
+        transform: translateY(-20px);
+        opacity: 1;
+    }
+    51%, 70% {
+        transform: translateY(-20px);
+    }
+    71%, 100% {
+        transform: translateY(0px);
+        opacity: 0;
+    }
+    /* @formatter:on */
 }
 
 .passcode-screen {
@@ -129,7 +173,6 @@
     pointer-events: none;
     background-color: hsl(206, 6.0%, 43.5%);
     transition: transform 300ms ease-in-out, opacity 200ms ease-in-out 200ms;
-
 }
 
 .passcode-screen[data-is-lockscreen-swiped-up='true'] {

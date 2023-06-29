@@ -7,9 +7,9 @@ type PasscodeState = [number?, number?, number?, number?];
 
 const CORRECT = 'CORRECT' as const;
 const INCORRECT = 'INCORRECT' as const;
-const NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
-const LETTERS = ['placeholder', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ', ''];
-const PASSCODE = '1111';
+const NUMBERS: readonly number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0] as const;
+const LETTERS: readonly string[] = ['xxx', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ', ''] as const;
+const PASSCODE = '1111' as const;
 
 const formatDate = (): string => {
   const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
@@ -29,26 +29,9 @@ function App() {
   const [passcodeValidationState, setPasscodeValidationState] = useState<PasscodeValidationState>(undefined);
   const [isLockScreenSwipedUp, setIsLockScreenSwipedUp] = useState<boolean>(false);
 
-  const timeoutId = useRef<NodeJS.Timeout | null>(null);
-
   const iphoneRef = useRef<HTMLDivElement>(null);
 
-  // useEffect(() => {
-  //   const setIphoneHeight = () => {
-  //     if (iphoneRef.current) {
-  //       const width = iphoneRef.current.offsetWidth;
-  //       iphoneRef.current.style.height = `${(width * 19.5) / 9}px`;
-  //     }
-  //   };
-  //
-  //   setIphoneHeight();
-  //
-  //   window.addEventListener('resize', setIphoneHeight);
-  //
-  //   return () => {
-  //     window.removeEventListener('resize', setIphoneHeight);
-  //   };
-  // }, []);
+  const timeoutId = useRef<NodeJS.Timeout | null>(null);
 
   const handleKeypadEnter = (number: number) => {
     setPasscodeValidationState(undefined);
@@ -178,7 +161,10 @@ function App() {
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
           />
-          <div className='swipe-indicator' />
+          <div className='swipe-indicator' data-is-lockscreen-swiped-up={isLockScreenSwipedUp} />
+          <div className='swipe-prompt' data-is-lockscreen-swiped-up={isLockScreenSwipedUp}>
+            Swipe up to unlock
+          </div>
         </div>
 
         <div
