@@ -1,5 +1,4 @@
 :root {
-    --mobile-width: 85vw;
     --desktop-width: 400px;
 }
 
@@ -8,7 +7,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: var(--mobile-width);
+    width: 80%;
+    height: 75%;
+    max-width: 350px;
+    max-height: 738px;
     border-radius: 39px;
     background: black;
     overflow: hidden;
@@ -40,15 +42,15 @@
 
 .background {
     position: relative;
-    height: inherit;
-    width: inherit;
+    height: 100%;
+    width: 100%;
 }
 
 .lock-screen {
     position: absolute;
     z-index: 3;
-    height: inherit;
-    width: inherit;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -124,8 +126,8 @@
 .passcode-screen {
     position: absolute;
     z-index: 5;
-    height: inherit;
-    width: inherit;
+    height: 100%;
+    width: 100%;
     opacity: 0;
     pointer-events: none;
     background-color: hsl(206, 6.0%, 43.5%);
@@ -298,68 +300,56 @@
 
 @media (min-width: 750px) {
     .iphone {
-        width: var(--desktop-width);
-        height: calc(var(--desktop-width) * 19.5 / 9) px;
+        width: 350px;
+        height: 738px;
     }
 
-    .dynamic-island {
-        width: 170px;
-        height: 35px;
-    }
-
-    .current-date {
-        font-size: 1.5em;
-    }
-
-    .current-time {
-        font-size: 7em;
-    }
-
-    .swipe-indicator {
-        width: 160px;
-    }
-
-    .user-interface-container {
-        padding-top: 10em;
-    }
-
-    .passcode-prompt {
-        font-size: 1.5em;
-    }
-
-    .pin-container {
-        gap: 1.5em;
-        margin-top: 1em;
-    }
-
-    .empty-circle-svg-icon {
-        height: 0.8rem;
-        width: 0.8rem;
-    }
-
-    .keypad-container {
-        gap: 1.75em;
-        margin-top: 7em;
-    }
-
-    .keypad {
-        --keypad-size: 6.5em;
-        line-height: 2em;
-    }
-
-    .keypad-number {
-        font-size: 3.5em;
-    }
-
-    .keypad-letters {
-        font-size: 1em;
-        font-weight: 700;
-    }
-
-    .delete-or-cancel-button {
-        bottom: 3em;
-        right: 3em;
-        font-size: 1.25em;
-    }
+    /*.dynamic-island {*/
+    /*    width: 170px;*/
+    /*    height: 35px;*/
+    /*}*/
+    /*.current-date {*/
+    /*    font-size: 1.5em;*/
+    /*}*/
+    /*.current-time {*/
+    /*    font-size: 7em;*/
+    /*}*/
+    /*.swipe-indicator {*/
+    /*    width: 160px;*/
+    /*}*/
+    /*.user-interface-container {*/
+    /*    padding-top: 10em;*/
+    /*}*/
+    /*.passcode-prompt {*/
+    /*    font-size: 1.5em;*/
+    /*}*/
+    /*.pin-container {*/
+    /*    gap: 1.5em;*/
+    /*    margin-top: 1em;*/
+    /*}*/
+    /*.empty-circle-svg-icon {*/
+    /*    height: 0.8rem;*/
+    /*    width: 0.8rem;*/
+    /*}*/
+    /*.keypad-container {*/
+    /*    gap: 1.75em;*/
+    /*    margin-top: 7em;*/
+    /*}*/
+    /*.keypad {*/
+    /*    --keypad-size: 6.5em;*/
+    /*    line-height: 2em;*/
+    /*}*/
+    /*.keypad-number {*/
+    /*    font-size: 3.5em;*/
+    /*}*/
+    /*.keypad-letters {*/
+    /*    font-size: 1em;*/
+    /*    font-weight: 700;*/
+    /*}*/
+    /*.delete-or-cancel-button {*/
+    /*    bottom: 3em;*/
+    /*    right: 3em;*/
+    /*    font-size: 1.25em;*/
+    /*}*/
 
 }
