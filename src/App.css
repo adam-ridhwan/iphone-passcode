@@ -120,7 +120,7 @@
 }
 
 .swipe-indicator[data-is-lockscreen-swiped-up='false'] {
-    animation: move 9s ease-in-out infinite;
+    animation: move 8s ease-in-out infinite;
 }
 
 @keyframes move {
@@ -141,7 +141,7 @@
 }
 
 .swipe-prompt[data-is-lockscreen-swiped-up='false'] {
-    animation: movePrompt 9s ease-in-out infinite;
+    animation: movePrompt 8s ease-in-out infinite;
 }
 
 @keyframes movePrompt {
