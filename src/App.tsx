@@ -9,7 +9,7 @@ const CORRECT = 'CORRECT' as const;
 const INCORRECT = 'INCORRECT' as const;
 const NUMBERS: readonly number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0] as const;
 const LETTERS: readonly string[] = ['xxx', 'ABC', 'DEF', 'GHI', 'JKL', 'MNO', 'PQRS', 'TUV', 'WXYZ', ''] as const;
-const PASSCODE = '1111' as const;
+const PASSCODE = '1987' as const;
 
 const formatDate = (): string => {
   const options: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' };
